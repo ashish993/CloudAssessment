@@ -1,7 +1,7 @@
 param
 (
-	[Parameter(Mandatory = $true)] [string]$ResourceGroup ="hans-Sitecore92AS",
-	[Parameter(Mandatory = $true)] [string]$subscriptionId ="6822a156-20f4-4617-94c5-8614ee7eae94",
+	[Parameter(Mandatory = $true)] [string]$ResourceGroup,
+	[Parameter(Mandatory = $true)] [string]$subscriptionId,
     [Parameter(Mandatory = $true)] [string]$TenantId,
     [Parameter(Mandatory = $true)] [string]$AppId,
     [Parameter(Mandatory = $true)] [string]$AppSecret
