@@ -289,5 +289,17 @@ else
 {
 $FinalOutput += "<b>Recommendations for Azure CDN</b><br><p>No CDN found. Use Azure CDN to cache Sitecore Media Library.</p>"
 }
+
+############################### Check Search Service ##################################
+$search =Get-AzResource -ResourceGroupName $ResourceGroup -ResourceType Microsoft.Search/searchServices
+if($search.Count -gt 0)
+{
+$FinalOutput += "<b>Recommendations for Search Service</b><br><p>Use Solr Search instead of Azure Search Service.</p>"
+}
+else
+{
+$FinalOutput += "<b>Recommendations for Search Service</b><br><p>No Recommendations for Search Service.</p>"
+}
+
 $FinalOutput += "</div>"
 $FinalOutput |  Out-File -FilePath .\Report.html
