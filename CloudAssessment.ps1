@@ -1,12 +1,17 @@
-
-$ResourceGroup ="hans-Sitecore92AS"
-$subscriptionId ="6822a156-20f4-4617-94c5-8614ee7eae94"
+param
+(
+	[Parameter(Mandatory = $true)] [string]$ResourceGroup ="hans-Sitecore92AS",
+	[Parameter(Mandatory = $true)] [string]$subscriptionId ="6822a156-20f4-4617-94c5-8614ee7eae94",
+    [Parameter(Mandatory = $true)] [string]$TenantId,
+    [Parameter(Mandatory = $true)] [string]$AppId,
+    [Parameter(Mandatory = $true)] [string]$AppSecret
+)
 
 # Connect to Azure Account
 
-$TenantId = "91700184-c314-4dc9-bb7e-a411df456a1e"
-$AppId = "273914d3-2399-4a3b-bfbc-8e44d1f3d3b2"
-$AppSecret = "gQwcYI60lHozWrRaVAsbuRHck0xo4U3M9gvSFJHSZzQ="
+#$TenantId = "91700184-c314-4dc9-bb7e-a411df456a1e"
+#$AppId = "273914d3-2399-4a3b-bfbc-8e44d1f3d3b2"
+#$AppSecret = "gQwcYI60lHozWrRaVAsbuRHck0xo4U3M9gvSFJHSZzQ="
 
 # ----------------- Login as a Service Pricipal  -----------------
 $secret = ConvertTo-SecureString $AppSecret -AsPlainText -Force
