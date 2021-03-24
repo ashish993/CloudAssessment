@@ -1,10 +1,6 @@
-param
-(
-	[Parameter(Mandatory = $true)] [string]$ResourceGroup ="hans-Sitecore92AS",
-	[Parameter(Mandatory = $true)] [string]$subscriptionId ="6822a156-20f4-4617-94c5-8614ee7eae94"
-)
-#$ResourceGroup ="hans-Sitecore92AS"
-#$subscriptionId ="6822a156-20f4-4617-94c5-8614ee7eae94"
+
+$ResourceGroup ="hans-Sitecore92AS"
+$subscriptionId ="6822a156-20f4-4617-94c5-8614ee7eae94"
 
 # Connect to Azure Account
 
