@@ -1,10 +1,12 @@
 param
 (
-	[Parameter(Mandatory = $true)] [string]$ResourceGroup,
-	[Parameter(Mandatory = $true)] [string]$subscriptionId,
+    [Parameter(Mandatory = $true)] [string]$ResourceGroup,
+    [Parameter(Mandatory = $true)] [string]$subscriptionId,
     [Parameter(Mandatory = $true)] [string]$TenantId,
     [Parameter(Mandatory = $true)] [string]$AppId,
-    [Parameter(Mandatory = $true)] [string]$AppSecret
+    [Parameter(Mandatory = $true)] [string]$AppSecret,
+    [Parameter(Mandatory = $true)] [string]$sqluser,
+    [Parameter(Mandatory = $true)] [string]$sqlpass
 )
 
 # Connect to Azure Account
@@ -12,6 +14,8 @@ param
 #$TenantId = "91700184-c314-4dc9-bb7e-a411df456a1e"
 #$AppId = "273914d3-2399-4a3b-bfbc-8e44d1f3d3b2"
 #$AppSecret = "gQwcYI60lHozWrRaVAsbuRHck0xo4U3M9gvSFJHSZzQ="
+#$sqluser="hans"
+#$sqlpass="h@nsTesting123$"
 
 # ----------------- Login as a Service Pricipal  -----------------
 $secret = ConvertTo-SecureString $AppSecret -AsPlainText -Force
@@ -234,8 +238,7 @@ if($dbencryption.State -ne "Enabled")
     $sqlresult += "Enable Data Encryption on $($db.DatabaseName).<br>"
 }
 
-$sqluser="hans"
-$sqlpass="h@nsTesting123$"
+
 $sqlquery = "SELECT top 1 DB_NAME() AS DBName ,OBJECT_NAME(ps.object_id) AS TableName ,i.name AS IndexName ,ips.index_type_desc ,ips.avg_fragmentation_in_percent ,ps.row_count FROM sys.dm_db_partition_stats ps INNER JOIN sys.indexes i ON ps.object_id = i.object_id AND ps.index_id = i.index_id CROSS APPLY sys.dm_db_index_physical_stats(DB_ID(), ps.object_id, ps.index_id, null, 'LIMITED') ips ORDER BY ips.avg_fragmentation_in_percent DESC"
 $dbfragmentation = Invoke-Sqlcmd -ServerInstance $($sqlserver.ServerName+('.database.windows.net')) -Database $db.DatabaseName -Query $sqlquery -Username $sqluser -Password $sqlpass -Verbose
 if($dbfragmentation.avg_fragmentation_in_percent -gt '80')
