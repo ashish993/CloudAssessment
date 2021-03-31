@@ -53,18 +53,19 @@ $converttohtml = @()
 $converttohtml= "<div class='container'>  <h2>Sitecore Caching Analysis</h2><table class='table table-bordered'><tr><td>Name</td><td>Count</td><td>Size</td><td>Max Size</td></tr>"
 foreach($val in $output)
 {
+$recomvalue=""
 switch ($val.Name)
 {
-    "SqlDataProvider - Prefetch data(web)" { $recomvalue = "<br>Recommended value of $($val.Name) is 1000 MB"    }
-    "web[items]" { $recomvalue = "<br>Recommended value of $($val.Name) is 1000 MB"     }
-    "AccessResultCache" { $recomvalue = "<br>Recommended value of $($val.Name) is 300 MB"    }
-    "web[data]" { $recomvalue = "<br>Recommended value of $($val.Name) is 1000 MB"  }
-    "SqlDataProvider - Prefetch data(master)" { $recomvalue = "<br>Recommended value of $($val.Name) is 1000 MB"   }
-    "master[items]" { $recomvalue = "<br>Recommended value of $($val.Name) is 1000 MB"     }
-    "master[data]" { $recomvalue = "<br>Recommended value of $($val.Name) is 1000 MB"   }
-    "SqlDataProvider - Prefetch data(core)" { $recomvalue = "<br>Recommended value of $($val.Name) is 500 MB"   }
-    "core[data]" { $recomvalue = "<br>Recommended value of $($val.Name) is 500 MB"   }
-    "core[items]" { $recomvalue = "<br>Recommended value of $($val.Name) is 500 MB"   }
+    "SqlDataProvider - Prefetch data(web)" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 1000 MB</b>"    }
+    "web[items]" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 1000 MB</b>"     }
+    "AccessResultCache" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 300 MB</b>"    }
+    "web[data]" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 1000 MB</b>"  }
+    "SqlDataProvider - Prefetch data(master)" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 1000 MB</b>"   }
+    "master[items]" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 1000 MB</b>"     }
+    "master[data]" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 1000 MB</b>"   }
+    "SqlDataProvider - Prefetch data(core)" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 500 MB</b>"   }
+    "core[data]" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 500 MB</b>"   }
+    "core[items]" { $recomvalue = "<br><b>Recommended value of $($val.Name) is 500 MB</b>"   }
 }
 $converttohtml += "<tr><td>$($val.Name)"+ " $($recomvalue)</td><td>$($val.Count)</td><td>$($val.Size)</td><td>$($val.MaxSize)</td></tr>"
 }
