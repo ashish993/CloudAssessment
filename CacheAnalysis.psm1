@@ -30,7 +30,7 @@ $cachehtml = $Driver.PageSource
 $cachehtml | Out-File "$PSScriptRoot $($ResourceGroup).html"
 $html = New-Object -ComObject "HTMLFile"
  
-$html.IHTMLDocument2_write((Get-Content -Path "$PSScriptRoot $($ResourceGroup).html" -raw))
+$html.IHTMLDocument2_write((Get-Content -Path "$PSScriptRoot\$($ResourceGroup).html" -raw))
  
 $allvalue =$html.all.tags("td") | % innerText
 $output=@()
@@ -80,7 +80,7 @@ $converttohtml += "<tr><td>$($val.Name)"+ " $($recomvalue)</td><td>$($val.Count)
 $converttohtml += "</div>"
 
 Write-host "Created Cache details" -ForegroundColor Yellow
-Remove-Item -Path "$PSScriptRoot $($ResourceGroup).html"
+Remove-Item -Path "$PSScriptRoot\$($ResourceGroup).html"
 return $converttohtml
 
 }
