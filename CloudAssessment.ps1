@@ -394,7 +394,7 @@ $ruleName = "$env:USERNAME-SitecoreAuditing"
 $client = New-Object System.Net.WebClient
 [xml]$response = $client.DownloadString("http://checkip.dyndns.org")
 $ip = ($response.html.body -split ':')[1].Trim()
-New-AzSqlServerFirewallRule    -ServerName $server -ResourceGroupName $resourceGroup -FirewallRuleName $ruleName -StartIpAddress $ip -EndIpAddress $ip
+New-AzSqlServerFirewallRule -ServerName $sqlserver.ServerName -ResourceGroupName $resourceGroup -FirewallRuleName $ruleName -StartIpAddress $ip -EndIpAddress $ip
 
 ######## SQL Server ########
 Write-Host "Checking Recommendations for Azure SQL Server" -ForegroundColor Yellow
