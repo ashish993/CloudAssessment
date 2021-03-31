@@ -8,7 +8,7 @@ param
     [Parameter(Mandatory = $true)] [string]$sqluser,
     [Parameter(Mandatory = $true)] [string]$sqlpass
 )
-
+Import-Module "$PSScriptRoot\CacheAnalysis.psm1" -Force -Verbose
 
 # ----------------- Login as a Service Pricipal  -----------------
 $secret = ConvertTo-SecureString $AppSecret -AsPlainText -Force
