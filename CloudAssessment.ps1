@@ -9,13 +9,6 @@ param
     [Parameter(Mandatory = $true)] [string]$sqlpass
 )
 
-# Connect to Azure Account
-
-#$TenantId = "91700184-c314-4dc9-bb7e-a411df456a1e"
-#$AppId = "273914d3-2399-4a3b-bfbc-8e44d1f3d3b2"
-#$AppSecret = "gQwcYI60lHozWrRaVAsbuRHck0xo4U3M9gvSFJHSZzQ="
-#$sqluser="hans"
-#$sqlpass="h@nsTesting123$"
 
 # ----------------- Login as a Service Pricipal  -----------------
 $secret = ConvertTo-SecureString $AppSecret -AsPlainText -Force
@@ -394,6 +387,15 @@ $sqlserverresult = @()
 $sqlserver =Get-AzSqlServer -ResourceGroupName $ResourceGroup
 $sqldb = Get-AzSqlDatabase -ServerName $sqlserver.ServerName -ResourceGroupName $ResourceGroup
 
+############################ Setting Firewall in SQL Server ############################
+
+$ruleName = "$env:USERNAME-SitecoreAuditing"
+
+$client = New-Object System.Net.WebClient
+[xml]$response = $client.DownloadString("http://checkip.dyndns.org")
+$ip = ($response.html.body -split ':')[1].Trim()
+New-AzSqlServerFirewallRule    -ServerName $server -ResourceGroupName $resourceGroup -FirewallRuleName $ruleName -StartIpAddress $ip -EndIpAddress $ip
+
 ######## SQL Server ########
 Write-Host "Checking Recommendations for Azure SQL Server" -ForegroundColor Yellow
 $FinalOutput += "<h1> Recommendations for Azure SQL Server </h1><p>"
@@ -477,7 +479,9 @@ $sqlresult += "Scale down the performance plan of $($db.DatabaseName). <br>"
 
 $FinalOutput += "<b>Recommendations for Azure SQL Database $($db.DatabaseName) </b><br> $($sqlresult) <br>"
 }
+############################ Remove Firewall in SQL Server ############################
 
+Remove-AzSqlServerFirewallRule -FirewallRuleName $ruleName -ServerName $sqlserver.ServerName -ResourceGroupName $ResourceGroup -Force
 
 ################################# Check Azure CDN ####################################
 Write-Host "Checking Recommendations for Azure CDN" -ForegroundColor Yellow
