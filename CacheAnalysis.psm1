@@ -6,11 +6,9 @@ $Driver = Start-SeFirefox -Quiet -Headless
 Enter-SeUrl "https://$($hostnameurl)/sitecore/" -Driver $Driver
 Start-Sleep -Second 5
 $Username = Find-SeElement -Driver $Driver -Id "Username"
-$Username
 Send-SeKeys -Element $Username -Keys $admin
 
 $Password = Find-SeElement -Driver $Driver -Id "Password"
-$Password
 Send-SeKeys -Element $Password -Keys $pass
 
 $Password.SendKeys([OpenQA.Selenium.Keys]::Enter)
@@ -71,8 +69,6 @@ switch ($val.Name)
     "core[data]" { $recomvalue = "<br>Recommended value of $($val.Name) is 500 MB"   }
     "core[items]" { $recomvalue = "<br>Recommended value of $($val.Name) is 500 MB"   }
 }
-
-$recomvalue
 
 $converttohtml += "<tr><td>$($val.Name)"+ " $($recomvalue)</td><td>$($val.Count)</td><td>$($val.Size)</td><td>$($val.MaxSize)</td></tr>"
 
