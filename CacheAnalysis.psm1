@@ -2,7 +2,7 @@
 
 $hostnameurl = (Get-AzWebApp -ResourceGroupName $ResourceGroup | Where-Object {$_.Name -match "-cm"}).DefaultHostName
 
-$Driver = Start-SeFirefox -Quiet -Verbose
+$Driver = Start-SeFirefox -Quiet -Headless
 Enter-SeUrl "https://$($hostnameurl)/sitecore/" -Driver $Driver
 Start-Sleep -Second 5
 $Username = Find-SeElement -Driver $Driver -Id "Username"
