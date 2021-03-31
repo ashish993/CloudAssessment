@@ -25,7 +25,7 @@ Start-Sleep -Seconds 10
 Write-host "Start Fetching Cache details" -ForegroundColor Yellow
 
 $cachehtml = $Driver.PageSource
-$cachehtml | Out-File "$PSScriptRoot $($ResourceGroup).html"
+$cachehtml | Out-File "$PSScriptRoot\$($ResourceGroup).html"
 $html = New-Object -ComObject "HTMLFile"
  
 $html.IHTMLDocument2_write((Get-Content -Path "$PSScriptRoot\$($ResourceGroup).html" -raw))
