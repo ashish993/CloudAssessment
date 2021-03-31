@@ -1,9 +1,5 @@
 ﻿function CacheAnalysis($ResourceGroup,$admin,$pass){
 
-$ResourceGroup ="mc-4792B334-4DD8-4E75-AB3E-0123456789AB"
-$admin= "admin"
-$pass ="b"
-
 $hostnameurl = (Get-AzWebApp -ResourceGroupName $ResourceGroup | Where-Object {$_.Name -match "-cm"}).DefaultHostName
 
 $Driver = Start-SeFirefox -Quiet -Verbose
