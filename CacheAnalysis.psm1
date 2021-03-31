@@ -25,10 +25,8 @@ Start-Sleep -Seconds 10
 Write-host "Start Fetching Cache details" -ForegroundColor Yellow
 
 $cachehtml = $Driver.PageSource
-$cachehtml | Out-File "$PSScriptRoot\$($ResourceGroup).html"
 $html = New-Object -ComObject "HTMLFile"
- 
-$html.IHTMLDocument2_write((Get-Content -Path "$PSScriptRoot\$($ResourceGroup).html" -raw))
+$html.IHTMLDocument2_write($cachehtml)
  
 $allvalue =$html.all.tags("td") | % innerText
 $output=@()
@@ -50,12 +48,11 @@ while($a -le $allvalue.Count)
     $a++
     $output+= $valueObject
 }
-$output | ft Name,Count,Size,Delta,MaxSize
+
 $converttohtml = @()
 $converttohtml= "<div class='container'>  <h2>Sitecore Caching Analysis</h2><table class='table table-bordered'><tr><td>Name</td><td>Count</td><td>Size</td><td>Max Size</td></tr>"
 foreach($val in $output)
 {
-
 switch ($val.Name)
 {
     "SqlDataProvider - Prefetch data(web)" { $recomvalue = "<br>Recommended value of $($val.Name) is 1000 MB"    }
@@ -69,14 +66,11 @@ switch ($val.Name)
     "core[data]" { $recomvalue = "<br>Recommended value of $($val.Name) is 500 MB"   }
     "core[items]" { $recomvalue = "<br>Recommended value of $($val.Name) is 500 MB"   }
 }
-
 $converttohtml += "<tr><td>$($val.Name)"+ " $($recomvalue)</td><td>$($val.Count)</td><td>$($val.Size)</td><td>$($val.MaxSize)</td></tr>"
-
 }
 $converttohtml += "</div>"
 
 Write-host "Created Cache details" -ForegroundColor Yellow
-Remove-Item -Path "$PSScriptRoot\$($ResourceGroup).html"
 return $converttohtml
 
 }
