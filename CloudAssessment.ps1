@@ -308,8 +308,14 @@ else
 $FinalOutput += "<b>Recommendations for Search Service</b><br><p>No Recommendations for Search Service.</p>"
 }
 
-############################### Check Cache tuning ##################################
+############################### Check Cache tuning for CM instance ##################################
 $FinalOutput += CacheAnalysis $ResourceGroup "admin" "b"
+
+
+############################### Check Cache tuning for CD instance ##################################
+$cdinstance= Get-AzWebApp -ResourceGroupName $ResourceGroup | Where-Object {$_.Name -match "-cd"}
+
+$FinalOutput += CacheCDAnalysis $ResourceGroup $cdinstance.Name
 
 $FinalOutput += "</div>"
 $FinalOutput |  Out-File -FilePath .\Report.html
