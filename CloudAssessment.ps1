@@ -6,7 +6,8 @@ param
     [Parameter(Mandatory = $true)] [string]$AppId,
     [Parameter(Mandatory = $true)] [string]$AppSecret,
     [Parameter(Mandatory = $true)] [string]$sqluser,
-    [Parameter(Mandatory = $true)] [string]$sqlpass
+    [Parameter(Mandatory = $true)] [string]$sqlpass,
+    [Parameter(Mandatory = $true)] [string]$scpassword
 )
 Import-Module "$PSScriptRoot\CacheAnalysis.psm1" -Force -Verbose
 
@@ -309,7 +310,7 @@ $FinalOutput += "<b>Recommendations for Search Service</b><br><p>No Recommendati
 }
 
 ############################### Check Cache tuning for CM instance ##################################
-$FinalOutput += CacheAnalysis $ResourceGroup "admin" "b"
+$FinalOutput += CacheAnalysis $ResourceGroup "admin" $scpassword
 
 
 ############################### Check Cache tuning for CD instance ##################################
